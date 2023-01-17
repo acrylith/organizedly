@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Clock from "./components/clock/Clock";
 import DialPanel from "./components/dials/DialPanel";
 import Groups from "./components/groups/Groups";
+import Weather from "./components/weather/Weather";
 
 function App() {
   const [group, setGroup] = useState(1)
@@ -15,6 +16,7 @@ function App() {
       <Box sx={ScreenWrapper}>
         <Clock />
         <DialPanel group={group} />
+        <Weather />
       </Box>
     </div>
   );

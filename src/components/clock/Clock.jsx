@@ -17,7 +17,7 @@ export default function Clock() {
         return () => clearInterval(interval)
     }, [])
     return (
-        <Box sx={{ cursor: 'default' }}>
+        <Box sx={{ cursor: 'default', textShadow: '1px 1px 4px black' }}>
             <Typography sx={DateDispay} component='h3'>
                 {dayjs(timestamp).format('dddd, D MMMM')}
             </Typography>

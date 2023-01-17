@@ -6,10 +6,9 @@ export default function AddModal(props) {
     const [title, setTitle] = useState('')
     async function addGroup() {
         try {
-            const id = await idb.groups.put({
+            await idb.groups.put({
                 title: title
             })
-            alert(`Group ${title} added with id ${id}`)
             setTitle('')
             props.setIsOpen()
         } catch (error) {

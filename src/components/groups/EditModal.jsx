@@ -4,7 +4,7 @@ import { idb } from '../../idb';
 
     export default function EditModal(props) {
         const { group = {title: 'blank', id: 0} } = props
-        const [title, setTitle] = useState(group.title)
+        const [title, setTitle] = useState('')
         async function deleteGroup() {
             await idb.bookmarks
                 .where('groupID')
@@ -16,12 +16,16 @@ import { idb } from '../../idb';
                 .delete()
             props.onClose()
         }
+        async function editGroup() {
+            await idb.groups.update(group.id, { title: title })
+            props.onClose()
+        }
     return (
         <Dialog onClose={props.onClose} open={props.open}>
             <DialogTitle>Edit Group</DialogTitle>
             <DialogContent>
                 <TextField
-                    label='Title'
+                    label='Enter new title'
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     fullWidth
@@ -30,8 +34,8 @@ import { idb } from '../../idb';
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onClose}>Cancel</Button>
-                <Button onClick={deleteGroup}>Delete</Button>
-                <Button>Edit</Button>
+                <Button color='error' onClick={deleteGroup}>Delete</Button>
+                <Button onClick={editGroup} disabled={title !== '' ? false : true}>Edit</Button>
             </DialogActions>
         </Dialog>
     )

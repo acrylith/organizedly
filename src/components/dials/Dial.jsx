@@ -38,9 +38,9 @@ export default function Dial(props) {
             <IconButton sx={MoreButton} onClick={handleOpenContext}>
                 <MoreVertIcon />
             </IconButton>
-            <Link href={`http://${url}`} sx={DialLink}>
-                {img ?
-                    <img src={URL.createObjectURL(img)} alt={title} /> :
+            <Link href={`${url}`} sx={DialLink}>
+                {
+                    img ? <img src={img} alt={title} /> :
                     <Typography component='span'>{title}</Typography>
                 }
             </Link>
