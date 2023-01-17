@@ -1,6 +1,6 @@
 # Organizedly v0.2
-Chrome extension thet replaces your browser's startpage with new bookmarks page.
-Allow you to save, edit and delete new bookmarks, their titles, images, urls and sort bokmarks by groups.
+Chrome extension that replaces your browser's startpage with new bookmarks page.
+Allow you to save, edit and delete new bookmarks, their titles, images, urls and sort bookmarks by groups.
 ![Screenshot](./screenshot.png)
 
 ## Installation
