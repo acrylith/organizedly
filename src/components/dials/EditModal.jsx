@@ -2,14 +2,8 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, D
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
 import { idb } from '../../idb'
-
-const fileToDataUri = (file) => new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-        resolve(e.target.result)
-    }
-    reader.readAsDataURL(file)
-})
+import { fileToDataUri } from '../../utils'
+import { useMutation } from '@tanstack/react-query'
 
 export default function EditModal(props) {
     const { dial } = props
@@ -33,9 +27,9 @@ export default function EditModal(props) {
         fileToDataUri(file).then(dataUri => {setFile(dataUri)})
     }
 
-    async function editBookMark() {
-        try {
-            const id = await idb.bookmarks.update(dial.id, {
+   const editBookMark = useMutation(
+        async () => {
+            await idb.bookmarks.update(dial.id, {
                 ...(title !== '') && {title: title},
                 ...(url !== '') && {url: url}, 
                 ...(file !== null) && {img: file},
@@ -51,15 +45,12 @@ export default function EditModal(props) {
                     )
                 }
             })
-            // alert(`Bookmark ${title} Updated. Got code ${id}`)
             setTitle('')
             setUrl('')
             setImg('')
             props.onClose()
-        } catch (error) {
-            alert(error)
         }
-    }
+    )
     return (
         <Dialog onClose={props.onClose} open={props.open}>
             <DialogTitle>Edit Bookmark</DialogTitle>
@@ -109,7 +100,7 @@ export default function EditModal(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.onClose}>Cancel</Button>
-                <Button onClick={editBookMark}>Edit</Button>
+                <Button onClick={editBookMark.mutate} disabled={editBookMark.isLoading}>Edit</Button>
             </DialogActions>
         </Dialog>
     )

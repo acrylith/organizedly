@@ -2,14 +2,8 @@ import React, { useState } from 'react'
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, RadioGroup, FormControlLabel, Radio } from '@mui/material'
 import { Box } from '@mui/system'
 import { idb } from '../../idb'
-
-const fileToDataUri = (file) => new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-        resolve(e.target.result)
-    }
-    reader.readAsDataURL(file)
-})
+import { fileToDataUri } from '../../utils'
+import { useMutation } from '@tanstack/react-query'
 
 export default function AddModal(props) {
     const [title, setTitle] = useState('')
@@ -32,14 +26,14 @@ export default function AddModal(props) {
         fileToDataUri(file).then(dataUri => {setFile(dataUri)})
     }
 
-    async function addBookMark() {
-        try {
-            const id = await idb.bookmarks.put({
+    const addBookMark = useMutation(
+        async () => {
+            await idb.bookmarks.put({
                 title: title,
                 url: url,
                 ...(file !== null) && {img: file},
                 ...(img !== '') && {
-                    img: await fetch(`https://api.allorigins.win/raw?url=${img}`)
+                    img: await fetch(`https://api.codetabs.com/v1/proxy?quest=${img}`)
                     .then(response => response.blob())
                     .then(blob => fileToDataUri(blob)
                     .then(
@@ -51,15 +45,12 @@ export default function AddModal(props) {
                 },
                 groupID: props.group
             })
-            // alert(`Bookmark ${title} added in ${props.group}. Got id ${id}`)
             setTitle('')
             setUrl('')
             setImg('')
             props.setIsOpen()
-        } catch (error) {
-            alert(error)
         }
-    }
+    )
     return (
         <Dialog onClose={props.onClose} open={props.open}>
             <DialogTitle>Add Bookmark</DialogTitle>
@@ -105,7 +96,12 @@ export default function AddModal(props) {
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.setIsOpen}>Cancel</Button>
-                <Button onClick={addBookMark} disabled={title !== '' && url !== '' ? false : true}>Add</Button>
+                <Button
+                    onClick={addBookMark.mutate}
+                    disabled={title !== '' && url !== '' || addBookMark.isLoading !== true ? false : true}
+                >
+                    Add
+                </Button>
             </DialogActions>
         </Dialog>
     )

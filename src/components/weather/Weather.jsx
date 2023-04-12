@@ -45,8 +45,8 @@ export default function Weather() {
                         
                     </Box>
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', px: 4 }}>
-                        <Typography sx={{ fontSize: 18, fontWeight: 400 }} onClick={openHandler}>
-                            {city !== null ? city : 'Click to enter your city'}
+                        <Typography sx={{ fontSize: 18, fontWeight: 400 }}>
+                            {city !== null ? city : 'Set your city in settings'}
                         </Typography>
                         <Typography sx={{ fontSize: 42, fontWeight: 600 }}>
                             {temp !== null ? `${Math.round(temp)}°C` : null}
