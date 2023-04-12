@@ -28,7 +28,6 @@ const ScreenWrapper = css({
   justifyContent: 'start',
   alignItems: 'center',
   gap: '2em',
-  height: '100vh',
   padding: '10% 0'
 })
 

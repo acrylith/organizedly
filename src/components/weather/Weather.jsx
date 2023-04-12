@@ -2,18 +2,13 @@ import { Box, css, SvgIcon, Typography } from '@mui/material'
 import { useLiveQuery } from 'dexie-react-hooks'
 import React, { useState, useEffect } from 'react'
 import { idb } from '../../idb'
-import CityModal from './CityModal'
 
 export default function Weather() {
-    const [open, setOpen] = useState(false)
     const [city, setCity] = useState(null)
     const [temp, setTemp] = useState(null)
     const [desc, setDesc] = useState(null)
     const [icon, setIcon] = useState(null)
     const [cod, setCod] = useState(null)
-    const openHandler = () => {
-        setOpen(!open)
-    }
     const querry = useLiveQuery(
         () => idb.settings
             .where('name')
@@ -60,7 +55,6 @@ export default function Weather() {
                             {desc !== null ? desc : null}
                         </Typography>
                     </Box>
-                    <CityModal open={open} onClose={openHandler} />
                 </Box>
                 :
                 <Box sx={wrapper}>
