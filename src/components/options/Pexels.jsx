@@ -1,10 +1,9 @@
-import { Button, CircularProgress, ImageList, ImageListItem, Link, TextField, Typography, css } from "@mui/material";
+import { CircularProgress, ImageList, ImageListItem, Link, Typography, css } from "@mui/material";
 import { Box } from "@mui/system";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { idb } from "../../idb";
 import { pexelClient } from "../../pexel"
 import { fileToDataUri } from "../../utils";
-import { useState } from "react";
 
 export default function Pexels(props) {
     const { searchQuery = '' } = props
@@ -72,7 +71,7 @@ export default function Pexels(props) {
 }
 
 const loadingLock = css({
-    position: 'absolute',
+    position: 'fixed',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     width: '100%',
     height: '100%',

@@ -23,7 +23,7 @@ export default function OptionsModal(props) {
                     <Tabs value={value} onChange={handleValue}>
                         <Tab icon={<CloudIcon />} label='Weather' />
                         <Tab icon={<WallpaperIcon />} label='Background' />
-                        <Tab icon={<RssFeedIcon />} label='RSS' />
+                        <Tab icon={<RssFeedIcon />} label='RSS' disabled />
                     </Tabs>
                 </Box>
                 <TabPanel value={value} index={0}>

@@ -30,7 +30,7 @@ function App() {
       <Global styles={[
         globalStyles, {
           'body' : {
-            transition: 'all .3s',
+            transition: 'backdrop-filter .3s',
             backgroundImage: `url(${bgImage ? bgImage.base64 : svgBg})`,
             ...(isBlured === true) && { backdropFilter: 'blur(4px)' }
           } 
